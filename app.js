@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
+const generatePage = require('./src/page-template.js');
 
 // declaring the prompt user method
 const promptUser = () => {
@@ -143,17 +145,11 @@ promptUser()
     //once finished - call the promptProject function
     .then(promptProject)
     .then(portfolioData => { // <<<<<< Ask tutor How does the prompt user data get put into the portfolioData array???
-        console.log(portfolioData)
-    })
+        const pageHTML = generatePage(portfolioData)
 
+        fs.writeFile('index.html', pageHTML, err => {
+            if (err) throw err;
 
-// const fs = require('fs');
-// const generatePage = require('./src/page-template.js');
-
-// const pageHTML = generatePage(name, github)
-
-// fs.writeFile('index.html', generatePage(name, github), err => {
-//     if (err) throw err;
-
-//     console.log('Portfolio complete! Check out index.html to see the output')
-// });
+            console.log('Portfolio complete! Check out index.html to see the output')
+        });
+    });
