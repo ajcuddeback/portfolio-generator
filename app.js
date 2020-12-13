@@ -35,6 +35,7 @@ const promptUser = () => {
             }
         },
         {
+            // This will confirm if the user would like to add stuff to about me section or not. if returns false, then the user will not be asked
             type: 'confirm',
             name: 'confirmAbout',
             message: 'Would you like to enter some information abour yourself for an "About me" section?',
@@ -44,6 +45,7 @@ const promptUser = () => {
             type: 'input',
             name: 'about',
             message: 'Provide some info about yourself:',
+            // the 'when' property will take all of the data that the user has answered so far, then you can specify which object you want. and if it is true. then it will run. if false it will not.
             when: ({ confirmAbout }) => {
                 if (confirmAbout) {
                     return true;
@@ -65,7 +67,7 @@ const promptProject = portfolioData => {
     `);
     // If nothing is currently stored in the portfolioData.projects array - then create and empty array
     if (!portfolioData.projects) {
-        portfolioData.projects = [];
+        portfolioData.projects = []; // <<<<< Ask tutor! why do I have to have the .projects at end of the array.. lesson said becuase the array will delete previous data. But that doesnt make sense
     }
     // return the project prompts
     return inquirer.prompt([
@@ -138,9 +140,9 @@ const promptProject = portfolioData => {
 }
 //Begin with prompting the user for their name, github, and about them
 promptUser()
-    // once finished - call the promptProject function
+    //once finished - call the promptProject function
     .then(promptProject)
-    .then(portfolioData => {
+    .then(portfolioData => { // <<<<<< Ask tutor How does the prompt user data get put into the portfolioData array???
         console.log(portfolioData)
     })
 
